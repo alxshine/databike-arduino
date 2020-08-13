@@ -28,6 +28,6 @@ void setup()
 
 void loop()
 {
-    Serial.println("Loop");
-    espDelay(10000);
+    networkManager.sendHello();
+    delay(1000);
 }

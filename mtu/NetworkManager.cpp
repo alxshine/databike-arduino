@@ -9,10 +9,10 @@ using namespace std;
 
 NetworkManager::NetworkManager(OutputManager &outputManager) : outputManager(outputManager)
 {
-    
 }
 
-void NetworkManager::init(){
+void NetworkManager::init()
+{
     outputManager.reset();
     WiFi.mode(WIFI_STA);
     int16_t n = WiFi.scanNetworks();
@@ -39,9 +39,11 @@ void NetworkManager::init(){
         outputManager.printf("Current status: %d\n", status);
 
         status = WiFi.begin(NetworkManager::ssid.c_str(), NetworkManager::password.c_str());
-        delay(10000);
+        delay(5000);
         outputManager.println(WiFi.status());
     }
+
+    broadCastIp = WiFi.broadcastIP();
 
     outputManager.reset();
     outputManager.message("Connected :)");
@@ -50,4 +52,11 @@ void NetworkManager::init(){
 NetworkManager::~NetworkManager()
 {
     WiFi.disconnect();
+}
+
+void NetworkManager::sendHello(){
+    outputManager.println("Sending UDP hello broadcast");
+    udp.beginPacket(broadCastIp, 1337);
+    udp.write((uint8_t *) "Hello, this is a UDP Packet", 27);
+    udp.endPacket();
 }
