@@ -2,6 +2,14 @@
 
 OutputManager::OutputManager() : tft{135, 240}
 {
+}
+
+OutputManager::~OutputManager()
+{
+    Serial.end();
+}
+
+void OutputManager::init(){
     Serial.begin(115200);
     while (!Serial)
         delay(100);
@@ -26,11 +34,6 @@ OutputManager::OutputManager() : tft{135, 240}
     tft.fillScreen(TFT_BLUE);
     delay(1000);
     reset();
-}
-
-OutputManager::~OutputManager()
-{
-    Serial.end();
 }
 
 void OutputManager::reset()

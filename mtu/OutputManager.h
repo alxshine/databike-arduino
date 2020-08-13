@@ -13,6 +13,8 @@ public:
     OutputManager();
     ~OutputManager();
 
+    void init();
+
     template <class T>
     void println(T message)
     {

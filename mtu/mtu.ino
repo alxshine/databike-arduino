@@ -19,15 +19,10 @@ void espDelay(unsigned long ms)
 
 void setup()
 {
-    outputManager.println("Hello, this is the outputManager");
-    outputManager.println(2);
-
+    outputManager.init();
     networkManager.init();
-    // networManager = unique_ptr<NetworkManager>(new NetworkManager(tft));
 }
 
 void loop()
 {
-    networkManager.sendHello();
-    delay(1000);
 }
