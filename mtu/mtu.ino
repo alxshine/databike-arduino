@@ -2,12 +2,12 @@
 
 #include <TFT_eSPI.h>
 
-#include "HotSpotConnector.h"
+#include "NetworkManager.h"
 
 using namespace std;
 
 
-unique_ptr<HotspotConnector> hotspotConnector;
+unique_ptr<NetworkManager> networManager;
 TFT_eSPI tft = TFT_eSPI(135, 240);
 
 void espDelay(unsigned long ms)
@@ -43,7 +43,7 @@ void setup()
     espDelay(1000);
 
     Serial.println("Beginning WiFi connection");
-    hotspotConnector = unique_ptr<HotspotConnector>(new HotspotConnector(tft));
+    networManager = unique_ptr<NetworkManager>(new NetworkManager(tft));
 }
 
 void loop()

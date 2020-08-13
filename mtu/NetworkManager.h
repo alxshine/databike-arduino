@@ -1,16 +1,16 @@
-#ifndef HOTSPOTCONNECTOR_H
-#define HOTSPOTCONNECTOR_H
+#ifndef NETWORKMANAGER_H
+#define NETWORKMANAGER_H
 
 #include <string>
 
 #include "WiFi.h"
 #include <TFT_eSPI.h>
 
-class HotspotConnector
+class NetworkManager
 {
 public:
-    HotspotConnector(TFT_eSPI &tft);
-    ~HotspotConnector();
+    NetworkManager(TFT_eSPI &tft);
+    ~NetworkManager();
 
 private:
     const std::string ssid = "databike";

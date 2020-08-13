@@ -1,4 +1,4 @@
-#include "HotSpotConnector.h"
+#include "NetworkManager.h"
 
 #include <string>
 
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-HotspotConnector::HotspotConnector(TFT_eSPI &tft) : tft(tft)
+NetworkManager::NetworkManager(TFT_eSPI &tft) : tft(tft)
 {
     tft.fillScreen(TFT_BLACK);
     tft.setCursor(0,0);
@@ -38,16 +38,16 @@ HotspotConnector::HotspotConnector(TFT_eSPI &tft) : tft(tft)
     {
         tft.fillScreen(TFT_BLACK);
         tft.setCursor(0, 0);
-        sprintf(buffer, "Connecting to WiFi: %s", HotspotConnector::ssid.c_str());
+        sprintf(buffer, "Connecting to WiFi: %s", NetworkManager::ssid.c_str());
         tft.println(buffer);
-        sprintf(buffer, "Password: %s", HotspotConnector::password.c_str());
+        sprintf(buffer, "Password: %s", NetworkManager::password.c_str());
         tft.println(buffer);
         sprintf(buffer, "Try: %d", i);
         tft.println(buffer);
         sprintf(buffer, "Current status: %d", status);
         tft.println(buffer);
 
-        status = WiFi.begin(HotspotConnector::ssid.c_str(), HotspotConnector::password.c_str());
+        status = WiFi.begin(NetworkManager::ssid.c_str(), NetworkManager::password.c_str());
         delay(10000);
         Serial.println(WiFi.status());
     }
@@ -56,7 +56,7 @@ HotspotConnector::HotspotConnector(TFT_eSPI &tft) : tft(tft)
     tft.drawString("Connected :)", tft.width() / 2, tft.height() / 2);
 }
 
-HotspotConnector::~HotspotConnector()
+NetworkManager::~NetworkManager()
 {
     WiFi.disconnect();
 }
