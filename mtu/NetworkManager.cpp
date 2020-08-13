@@ -7,53 +7,44 @@
 
 using namespace std;
 
-NetworkManager::NetworkManager(TFT_eSPI &tft) : tft(tft)
+NetworkManager::NetworkManager(OutputManager &outputManager) : outputManager(outputManager)
 {
-    tft.fillScreen(TFT_BLACK);
-    tft.setCursor(0,0);
-    char buffer[512];
+    
+}
+
+void NetworkManager::init(){
+    outputManager.reset();
     WiFi.mode(WIFI_STA);
     int16_t n = WiFi.scanNetworks();
     if (n == 0)
     {
-        tft.println("No networks found");
+        outputManager.println("No networks found");
     }
     else
     {
-        Serial.printf("Found %d networks\n", n);
+        outputManager.printf("Found %d networks\n", n);
         for (int i = 0; i < n; ++i)
         {
-            sprintf(buffer,
-                    "[%d]:%s(%d)",
-                    i + 1,
-                    WiFi.SSID(i).c_str(),
-                    WiFi.RSSI(i));
-            tft.println(buffer);
-            Serial.println(buffer);
+            outputManager.printf("[%d]:%s(%d)\n", i + 1, WiFi.SSID(i).c_str(), WiFi.RSSI(i));
         }
     }
     delay(1000);
 
     for (int i = 1; status != WL_CONNECTED; ++i)
     {
-        tft.fillScreen(TFT_BLACK);
-        tft.setCursor(0, 0);
-        sprintf(buffer, "Connecting to WiFi: %s", NetworkManager::ssid.c_str());
-        tft.println(buffer);
-        sprintf(buffer, "Password: %s", NetworkManager::password.c_str());
-        tft.println(buffer);
-        sprintf(buffer, "Try: %d", i);
-        tft.println(buffer);
-        sprintf(buffer, "Current status: %d", status);
-        tft.println(buffer);
+        outputManager.reset();
+        outputManager.printf("Connecting to WiFi: %s\n", NetworkManager::ssid.c_str());
+        outputManager.printf("Password: %s\n", NetworkManager::password.c_str());
+        outputManager.printf("Try: %d\n", i);
+        outputManager.printf("Current status: %d\n", status);
 
         status = WiFi.begin(NetworkManager::ssid.c_str(), NetworkManager::password.c_str());
         delay(10000);
-        Serial.println(WiFi.status());
+        outputManager.println(WiFi.status());
     }
 
-    tft.fillScreen(TFT_BLACK);
-    tft.drawString("Connected :)", tft.width() / 2, tft.height() / 2);
+    outputManager.reset();
+    outputManager.message("Connected :)");
 }
 
 NetworkManager::~NetworkManager()

@@ -30,10 +30,21 @@ OutputManager::OutputManager() : tft{135, 240}
 
 OutputManager::~OutputManager()
 {
+    Serial.end();
 }
 
 void OutputManager::reset()
 {
     tft.fillScreen(TFT_BLACK);
     tft.setCursor(0, 0);
+}
+
+void OutputManager::newline(){
+    Serial.println();
+    tft.println();
+}
+
+void OutputManager::message(String message)
+{
+    tft.drawString(message, tft.width() / 2, tft.height() / 2);
 }

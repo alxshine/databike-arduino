@@ -13,15 +13,27 @@ public:
     OutputManager();
     ~OutputManager();
 
-
-    template<class T>
-    void println(T message){
+    template <class T>
+    void println(T message)
+    {
         Serial.println(message);
         Serial.flush();
         tft.println(message);
     }
 
     void reset();
+
+    template <class... Args>
+    void printf(Args... args)
+    {
+        Serial.printf(args...);
+        Serial.flush();
+        tft.printf(args...);
+    }
+
+    void newline();
+
+    void message(String message);
 };
 
 #endif

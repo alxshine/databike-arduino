@@ -7,10 +7,8 @@
 
 using namespace std;
 
-
-OutputManager outputManager;
-unique_ptr<NetworkManager> networManager;
-TFT_eSPI tft = TFT_eSPI(135, 240);
+OutputManager outputManager{};
+NetworkManager networkManager{outputManager};
 
 void espDelay(unsigned long ms)
 {
@@ -21,12 +19,10 @@ void espDelay(unsigned long ms)
 
 void setup()
 {
-    
-    espDelay(1000);
-
-    Serial.println("Beginning WiFi connection");
     outputManager.println("Hello, this is the outputManager");
     outputManager.println(2);
+
+    networkManager.init();
     // networManager = unique_ptr<NetworkManager>(new NetworkManager(tft));
 }
 
