@@ -20,7 +20,7 @@ void espDelay(unsigned long ms)
 void setup()
 {
     outputManager.init();
-    // networkManager.init();
+    networkManager.init();
     sensorManager.init();
 
     delay(1000);
@@ -37,6 +37,6 @@ void loop()
     outputManager.newline();
     outputManager.println("Gyroscope");
     outputManager.printf("X = %d\nY = %d\nZ = %d\n", values.GyX, values.GyY, values.GyZ);
-    outputManager.println(values.to_string());
+    networkManager.sendSensorValues(values);
     delay(333);
 }
