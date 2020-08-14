@@ -23,6 +23,11 @@ public:
         tft.println(message);
     }
 
+    void println(std::string message)
+    {
+        println(message.c_str());
+    }
+
     void reset();
 
     template <class... Args>

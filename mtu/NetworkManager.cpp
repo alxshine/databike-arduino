@@ -60,3 +60,9 @@ void NetworkManager::sendHello(){
     udp.write((uint8_t *) "Hello, this is a UDP Packet", 27);
     udp.endPacket();
 }
+
+void NetworkManager::sendSensorValues(SensorValues values){
+    udp.beginPacket(broadCastIp, 1337);
+    udp.write((uint8_t *) "Hello, this is a UDP Packet", 27);
+    udp.endPacket();
+}

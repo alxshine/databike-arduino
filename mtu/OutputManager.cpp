@@ -13,6 +13,7 @@ void OutputManager::init(){
     Serial.begin(115200);
     while (!Serial)
         delay(100);
+    Serial.println("Serial connection configured");
 
     Serial.println("Setting up TFT screen");
     tft.init();
@@ -32,6 +33,7 @@ void OutputManager::init(){
     tft.setSwapBytes(true);
 
     tft.fillScreen(TFT_BLUE);
+    Serial.println("TFT setup done");
     delay(1000);
     reset();
 }

@@ -5,6 +5,7 @@
 
 #include "WiFi.h"
 #include "OutputManager.h"
+#include "SensorValues.h"
 
 class NetworkManager
 {
@@ -14,6 +15,7 @@ public:
 
     void init();
     void sendHello();
+    void sendSensorValues(SensorValues values);
 private:
     const std::string ssid = "databike";
     const std::string password = "databike1337";

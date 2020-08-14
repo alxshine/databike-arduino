@@ -1,14 +1,14 @@
 #include <memory>
 
-#include <TFT_eSPI.h>
-
 #include "OutputManager.h"
 #include "NetworkManager.h"
+#include "SensorManager.h"
 
 using namespace std;
 
 OutputManager outputManager{};
 NetworkManager networkManager{outputManager};
+SensorManager sensorManager{outputManager};
 
 void espDelay(unsigned long ms)
 {
@@ -20,9 +20,23 @@ void espDelay(unsigned long ms)
 void setup()
 {
     outputManager.init();
-    networkManager.init();
+    // networkManager.init();
+    sensorManager.init();
+
+    delay(1000);
 }
 
 void loop()
 {
+    sensorManager.updateSensorValues();
+    auto values = sensorManager.getSensorValues();
+
+    outputManager.reset();
+    outputManager.println("Accelerometer");
+    outputManager.printf("X = %d\nY = %d\nZ = %d\n", values.AcX, values.AcY, values.AcZ);
+    outputManager.newline();
+    outputManager.println("Gyroscope");
+    outputManager.printf("X = %d\nY = %d\nZ = %d\n", values.GyX, values.GyY, values.GyZ);
+    outputManager.println(values.to_string());
+    delay(333);
 }
