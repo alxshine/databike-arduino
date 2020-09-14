@@ -32,6 +32,7 @@ void loop()
     auto values = sensorManager.getSensorValues();
 
     outputManager.reset();
+    outputManager.printf("Time: %d\n", values.millis);
     outputManager.println("Accelerometer");
     outputManager.printf("X = %d\nY = %d\nZ = %d\n", values.AcX, values.AcY, values.AcZ);
     outputManager.newline();

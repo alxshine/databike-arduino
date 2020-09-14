@@ -28,7 +28,7 @@ void SensorManager::updateSensorValues()
     Wire.beginTransmission(MPU);
     Wire.write(0x3B);
     Wire.endTransmission(false);
-    Wire.requestFrom(MPU, (uint8_t)12, true);
+    Wire.requestFrom(MPU, 12, (int)true);
     AcX = Wire.read() << 8 | Wire.read();
     AcY = Wire.read() << 8 | Wire.read();
     AcZ = Wire.read() << 8 | Wire.read();
@@ -39,5 +39,5 @@ void SensorManager::updateSensorValues()
 
 SensorValues SensorManager::getSensorValues()
 {
-    return {AcX, AcY, AcZ, GyX, GyY, GyZ};
+    return {millis(), AcX, AcY, AcZ, GyX, GyY, GyZ};
 }
